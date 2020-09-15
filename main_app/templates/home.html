@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Tedious Tasks</title>
+</head>
+
+<body>
+
+    <h1>Tedious Tasks</h1>
+
+    {% if task_list|length == 0 %}
+    <h3>No Task Exist</h3>
+
+    {% else %}
+    <table class='home_table'>
+        <thead>
+            <tr>
+                <th>description</th>
+                <th>time</th>
+                <th>person</th>
+            </tr>
+        </thead>
+
+        
+        {% for task in task_list %}
+        <tr>
+            <td>{{ task.description }}</td>
+            <td>{{ task.time }}</td>
+            <td>{{ task.person }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <hr />
+    <h4>Add Task</h4>
+    <form action="{% url 'addOne' %}" method="post">
+        {% csrf_token %}
+        {{ task_form.as_p }}
+        <input type="submit" class="btn" value="Add A Task" />
+    </form>
+
+</body>
+
+</html>
